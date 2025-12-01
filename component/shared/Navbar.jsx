@@ -1,213 +1,217 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, Variants } from "framer-motion";
-import { Home, Settings, Bell, User, TextAlignJustify } from "lucide-react";
+import { motion } from "framer-motion";
+import { Home, User, Code2, Book, Mail, Menu } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import logo from "@/public/images/logo3.svg";
+import ThemeToggleButton from "../common/ThemeToggleButton";
+
 const menuItems = [
   {
-    icon: <Home className="h-5 w-5" />,
     label: "Home",
     href: "/",
-    gradient:
-      "radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(37,99,235,0.06) 50%, rgba(29,78,216,0) 100%)",
-    iconColor: "group-hover:text-blue-500 dark:group-hover:text-blue-400",
   },
   {
-    icon: <Bell className="h-5 w-5" />,
     label: "About",
     href: "/about",
-    gradient:
-      "radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.06) 50%, rgba(194,65,12,0) 100%)",
-    iconColor: "group-hover:text-orange-500 dark:group-hover:text-orange-400",
   },
   {
-    icon: <Settings className="h-5 w-5" />,
     label: "Projects",
     href: "/projects",
-    gradient:
-      "radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
-    iconColor: "group-hover:text-green-500 dark:group-hover:text-green-400",
   },
   {
-    icon: <User className="h-5 w-5" />,
     label: "Blog",
     href: "/blog",
-    gradient:
-      "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
-    iconColor: "group-hover:text-red-500 dark:group-hover:text-red-400",
   },
   {
-    icon: <User className="h-5 w-5" />,
     label: "Contact",
     href: "/contact",
-    gradient:
-      "radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
-    iconColor: "group-hover:text-red-500 dark:group-hover:text-red-400",
   },
 ];
+
+// Effects for animation
 const itemVariants = {
-  initial: {
-    rotateX: 0,
-    opacity: 1,
-  },
-  hover: {
-    rotateX: -90,
-    opacity: 0,
-  },
+  initial: { rotateX: 0, opacity: 1 },
+  hover: { rotateX: -90, opacity: 0 },
 };
+
 const backVariants = {
-  initial: {
-    rotateX: 90,
-    opacity: 0,
-  },
-  hover: {
-    rotateX: 0,
-    opacity: 1,
-  },
+  initial: { rotateX: 90, opacity: 0 },
+  hover: { rotateX: 0, opacity: 1 },
 };
+
 const glowVariants = {
-  initial: {
-    opacity: 0,
-    scale: 0.8,
-  },
+  initial: { opacity: 0, scale: 0.8 },
   hover: {
     opacity: 1,
     scale: 2,
-    transition: {
-      opacity: {
-        duration: 0.5,
-        ease: [0.4, 0, 0.2, 1],
-      },
-      scale: {
-        duration: 0.5,
-        type: "spring",
-        stiffness: 300,
-        damping: 25,
-      },
-    },
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
   },
-};
-const navGlowVariants = {
-  initial: {
-    opacity: 0,
-  },
-  hover: {
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
-const sharedTransition = {
-  type: "spring",
-  stiffness: 100,
-  damping: 20,
-  duration: 0.5,
 };
 
-function Navbar() {
+const Navbar = () => {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) setScrolled(true);
-      else setScrolled(false);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   return (
     <div
       className={`
-    flex sticky w-full top-0 z-50 items-center section-padding-x justify-between py-4 transition-all duration-500 
-    ${
-      scrolled
-        ? "bg-[radial-gradient(circle,rgba(0,255,255,0.18)_0%,rgba(0,255,255,0.08)_50%,rgba(0,255,255,0)_100%)] backdrop-blur-xl"
-        : "bg-transparent"
-    }
-  `}
+      fixed w-full top-0 z-50 section-padding-x py-4 flex justify-between items-center
+      transition-all duration-500
+      ${
+        scrolled
+          ? "bg-[rgba(0,255,255,0.06)] backdrop-blur-xl shadow-lg dark:bg-[rgba(0,0,0,0.6)]"
+          : "bg-transparent"
+      }
+    `}
     >
-      <Link href="/" className="text-xl font-bold">
-        Code
+      {/* Logo */}
+      <Link href="/" className="flex items-center gap-2">
+        <Image src={logo} alt="logo" width={120} />
       </Link>
+
+      {/* Desktop Nav */}
       <motion.nav
-        className="  p-2 rounded-full bg-white/60 dark:bg-black/60 backdrop-blur-lg border border-gray-200/80 dark:border-gray-800/80 shadow-lg dark:shadow-gray-900/20 relative overflow-hidden"
+        className="hidden md:block p-2 rounded-full bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-white/20"
         initial="initial"
         whileHover="hover"
       >
-        <motion.div
-          className="absolute -inset-2 rounded-3xl z-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(147,51,234,0.1) 50%, rgba(239,68,68,0.1) 100%)",
-          }}
-          variants={navGlowVariants}
-        />
         <ul className="flex items-center gap-6 relative z-10">
-          {menuItems.map((item) => (
-            <motion.li key={item.label} className="relative">
-              <motion.div
-                className="block rounded-xl overflow-visible group relative"
-                style={{
-                  perspective: "600px",
-                }}
-                whileHover="hover"
-                initial="initial"
-              >
-                {}
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
+
+            return (
+              <motion.li key={item.label} className="relative">
                 <motion.div
-                  className="absolute inset-0 z-0 pointer-events-none rounded-2xl"
-                  variants={glowVariants}
-                  style={{
-                    background: item.gradient,
-                    opacity: 0,
-                  }}
-                />
-                {}
-                <motion.a
-                  href={item.href}
-                  className="flex items-center gap-2 px-4 py-2 relative z-10 bg-transparent text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors rounded-xl"
-                  variants={itemVariants}
-                  transition={sharedTransition}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    transformOrigin: "center bottom",
-                  }}
+                  className="block rounded-xl overflow-visible group relative"
+                  whileHover="hover"
+                  initial="initial"
+                  style={{ perspective: 600 }}
                 >
-                  {/* <span className={`transition-colors duration-300 ${item.iconColor}`}>
-                  {item.icon}
-                </span> */}
-                  <span className="font-medium">{item.label}</span>
-                </motion.a>
-                {}
-                <motion.a
-                  href={item.href}
-                  className="flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors rounded-xl"
-                  variants={backVariants}
-                  transition={sharedTransition}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    transformOrigin: "center top",
-                    transform: "rotateX(90deg)",
-                  }}
-                >
-                  {/* <span className={`transition-colors duration-300 ${item.iconColor}`}>
-                  {item.icon}
-                </span> */}
-                  <span className="font-medium">{item.label}</span>
-                </motion.a>
-              </motion.div>
-            </motion.li>
-          ))}
+                  {/* Glow */}
+                  <motion.div
+                    className="absolute inset-0 z-0 rounded-2xl pointer-events-none"
+                    variants={glowVariants}
+                    style={{
+                      background:
+                        "radial-gradient(circle, rgba(0,200,255,0.12) 0%, rgba(0,200,255,0.04) 50%, rgba(0,200,255,0) 100%)",
+                    }}
+                  />
+
+                  {/* Front */}
+                  <motion.div
+                    variants={itemVariants}
+                    transition={{ duration: 0.4 }}
+                    className={`px-4 py-2 rounded-xl text-sm sm:text-base  font-medium
+                      ${
+                        isActive
+                          ? "text-cyan-400 font-semibold"
+                          : "text-gray-300 group-hover:text-white"
+                      }
+                    `}
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transformOrigin: "center bottom",
+                    }}
+                  >
+                    <Link href={item.href}>{item.label}</Link>
+                  </motion.div>
+
+                  {/* Back */}
+                  <motion.div
+                    variants={backVariants}
+                    transition={{ duration: 0.4 }}
+                    className={`px-4 py-2 rounded-xl text-sm sm:text-base font-medium absolute inset-0
+                      ${
+                        isActive
+                          ? "text-cyan-400 font-semibold"
+                          : "text-gray-300 group-hover:text-white"
+                      }
+                    `}
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transformOrigin: "center top",
+                    }}
+                  >
+                    <Link href={item.href}>{item.label}</Link>
+                  </motion.div>
+                </motion.div>
+              </motion.li>
+            );
+          })}
         </ul>
       </motion.nav>
-      <div className="relative flex items-center justify-center p-2 rounded-full bg-white ">
-        <TextAlignJustify className="size-7 text-[#000]" />
+
+      {/* Right actions */}
+      <div className="flex items-center gap-4">
+        <ThemeToggleButton />
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden p-2 rounded-full hover:bg-white/10 transition"
+          onClick={() => setOpenMenu(true)}
+        >
+          <Menu className="size-7 text-cyan-400" />
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      {openMenu && (
+        <motion.div
+          initial={{ x: "100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: "100%" }}
+          transition={{ type: "spring", stiffness: 200, damping: 25 }}
+          className="fixed top-0 right-0 w-72 h-full bg-black/90 backdrop-blur-xl p-8 z-[999] border-l border-white/10"
+        >
+          <div className="flex justify-between items-center mb-10">
+            <Image src={logo} alt="logo" width={100} />
+            <button
+              className="text-gray-400 hover:text-white text-xl"
+              onClick={() => setOpenMenu(false)}
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Mobile Menu Items */}
+          <div className="flex flex-col gap-6">
+            {menuItems.map((item) => {
+              const isActive = pathname === item.href;
+
+              return (
+                <Link
+                  key={item.label}
+                  onClick={() => setOpenMenu(false)}
+                  href={item.href}
+                  className={`
+                    text-lg font-medium 
+                    ${
+                      isActive
+                        ? "text-cyan-400"
+                        : "text-gray-300 hover:text-cyan-400"
+                    }
+                  `}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
-}
+};
+
 export default Navbar;
