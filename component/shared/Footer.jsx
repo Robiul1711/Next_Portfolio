@@ -1,5 +1,6 @@
 "use client";
-
+import logo from "@/public/images/logo3.svg";
+import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
@@ -14,7 +15,7 @@ const Footer = () => {
           {/* Left: Brand + Description */}
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Code<span className="text-cyan-400">Craft</span>
+         <Image src={logo} alt="logo" width={120} height={120} />
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mt-2 max-w-sm">
               Building modern, scalable, and high-performance web applications 
@@ -59,7 +60,7 @@ const Footer = () => {
         {/* Bottom Border */}
         <div className="border-t border-gray-200 dark:border-gray-800 mt-10 pt-6 flex justify-between items-center">
           <p className="text-gray-600 dark:text-gray-400 text-sm">
-            © {new Date().getFullYear()} Your Name. All rights reserved.
+            © {new Date().getFullYear()} Robiul Islam Ashiq. All rights reserved.
           </p>
 
           {/* Back to top */}

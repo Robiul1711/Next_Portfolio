@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin } from "lucide-react";
 import Link from "next/link";
+import CommonButton from "../common/CommonButton";
 
 const Banner = () => {
   return (
@@ -53,12 +54,7 @@ const Banner = () => {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-8 flex items-center justify-center gap-4"
         >
-          <Link
-            href="/projects"
-            className="px-6 py-3 rounded-full bg-cyan-500 hover:bg-cyan-600 text-white font-medium flex items-center gap-2 transition"
-          >
-            View Projects <ArrowRight size={18} />
-          </Link>
+    <CommonButton text="Get Start Now" link="/contact"  />
 
           <Link
             href="/contact"
