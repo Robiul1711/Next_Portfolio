@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import OrbitingSkills from "../common/OrbitingSkills";
 
+import { SiNextdotjs, SiReact, SiNodedotjs, SiMongodb, SiTailwindcss } from "react-icons/si";
 
 const skills = [
   "HTML / CSS / Tailwind CSS",
@@ -15,10 +16,17 @@ const skills = [
   "REST API Development",
   "Framer Motion Animations",
 ];
+  const skillsLevel = [
+    { icon: <SiReact />, name: "React.js", level: 95, color: "#61DAFB" },
+    { icon: <SiNextdotjs />, name: "Next.js", level: 90, color: "#fffff" },
+    { icon: <SiNodedotjs />, name: "Node.js", level: 88, color: "#339933" },
+    { icon: <SiMongodb />, name: "MongoDB", level: 85, color: "#47A248" },
+    { icon: <SiTailwindcss />, name: "Tailwind", level: 94, color: "#06B6D4" },
+  ];
 
 const SkillSection = () => {
   return (
-    <div className="w-full section-padding-x text-white">
+    <div className="w-full section-padding-x section-padding-y text-white">
       {/* Heading */}
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold">My Skills</h2>
@@ -29,6 +37,7 @@ const SkillSection = () => {
 
       {/* Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div className="flex flex-col">
 
         {/* LEFT — Skill Map */}
         <motion.div
@@ -41,7 +50,44 @@ const SkillSection = () => {
          
   <OrbitingSkills />
           </motion.div>
+           {/* Skills Progress */}
+              <div className="pt-8">
+                <h3 className="text-2xl font-semibold mb-6 text-gray-200">
+                  Technical Expertise
+                </h3>
+                <div className="space-y-4">
+                  {skillsLevel.map((skill, idx) => (
+                    <motion.div
+                      key={skill.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: idx * 0.1 }}
+                      viewport={{ once: true }}
+                      className="space-y-2"
+                    >
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                          <span style={{ color: skill.color }}>{skill.icon}</span>
+                          <span className="font-medium text-gray-200">{skill.name}</span>
+                        </div>
+                        <span className="text-cyan-400 font-bold">{skill.level}%</span>
+                      </div>
+                      <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, delay: 0.3 + idx * 0.1 }}
+                          className="h-full rounded-full"
+                          style={{ background: `linear-gradient(to right, ${skill.color}, ${skill.color}88)` }}
+                        />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
        
+</div>
 
         {/* RIGHT — Skill List */}
         <motion.div
