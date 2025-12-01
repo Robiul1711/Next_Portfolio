@@ -1,13 +1,21 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const ThemeToggleButton = ({ className }) => {
-  const [isDark, setIsDark] = useState(
-    () => localStorage.getItem("theme") === "dark"
-  );
+  const [isDark, setIsDark] = useState(false); // default
 
-  // Apply theme to <html> tag
+  // Read from localStorage only in the browser
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      setIsDark(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  // Update theme
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add("dark");
@@ -23,11 +31,12 @@ const ThemeToggleButton = ({ className }) => {
       type="button"
       onClick={() => setIsDark(!isDark)}
       className={cn(
-        "rounded-full size-10 sm:size-12 hover:bg-[#262626] cursor-pointer  flex items-center justify-center transition-all duration-300 active:scale-95",
+        "rounded-full size-10 sm:size-12 hover:bg-[#262626] cursor-pointer flex items-center justify-center transition-all duration-300 active:scale-95",
         isDark ? "bg-black text-white" : "bg-[#262626] text-white",
         className
       )}
     >
+      {/* ICONS */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -39,10 +48,9 @@ const ThemeToggleButton = ({ className }) => {
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        {/* Moon for dark mode */}
+        {/* Moon */}
         <motion.path
           d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-          initial={false}
           animate={{
             opacity: isDark ? 1 : 0,
             scale: isDark ? 1 : 0.8,
@@ -50,9 +58,8 @@ const ThemeToggleButton = ({ className }) => {
           transition={{ duration: 0.3 }}
         />
 
-        {/* Sun for light mode */}
+        {/* Sun */}
         <motion.g
-          initial={false}
           animate={{
             opacity: isDark ? 0 : 1,
             scale: isDark ? 0.8 : 1,
