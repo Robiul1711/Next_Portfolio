@@ -8,7 +8,7 @@ import CommonButton from "../common/CommonButton";
 
 const Banner = () => {
   return (
-    <section className="relative w-full min-h-[85vh] flex items-center justify-center px-6 md:px-20">
+    <section className="relative w-full min-h-screen flex items-center justify-center px-6 md:px-20">
       {/* Glow Background (Soft Blur) */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[480px] h-[480px] bg-cyan-400/20 rounded-full blur-[120px]" />
