@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import profileImg from "@/public/images/profile.png"; // Change to your image
-import OrbitingSkills from "@/component/common/OrbitingSkills";
 
 export default function AboutPage() {
   return (
