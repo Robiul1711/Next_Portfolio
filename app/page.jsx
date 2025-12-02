@@ -4,6 +4,7 @@ import { HeroParallaxDemo } from "@/component/home/HeroParallaxDemo";
 import LightRays from "@/components/LightRays";
 import React from "react";
 import TimelineSection from "@/component/home/TimelineSection";
+import AboutMe from "@/component/home/AboutMe";
 
 const Home = () => {
   return (
@@ -25,6 +26,7 @@ const Home = () => {
       </div>
 
       <Banner />
+      <AboutMe/>
       <SkillSection />
       <div className="">
         <HeroParallaxDemo />
