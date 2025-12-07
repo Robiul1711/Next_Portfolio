@@ -44,7 +44,7 @@ export const HeroParallax = ({ products }) => {
   return (
     <div
       ref={ref}
-      className="h-[300vh] pt-40 overflow-hidden  antialiased relative flex flex-col self-auto perspective-[1000px] transform-3d"
+      className="h-[280vh] pt-40 overflow-hidden  antialiased relative flex flex-col self-auto perspective-[1000px] transform-3d"
     >
       <Header />
       <motion.div
@@ -105,8 +105,9 @@ export const Header = () => {
 };
 
 export const ProductCard = ({ product, translate }) => {
-  console.log(product)
+  // console.log(product)
   return (
+    <>
     <motion.div
       style={{
         x: translate,
@@ -121,13 +122,6 @@ export const ProductCard = ({ product, translate }) => {
         href={product?.live}
         className="block group-hover/product:shadow-2xl "
       >
-        {console.log(product)}
-        {/* <img
-          src={product.thumbnail}
-          height="600"
-          width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0 "
-          alt={product.title} /> */}
         <Image
           src={product?.image}
           alt={product?.title}
@@ -141,5 +135,6 @@ export const ProductCard = ({ product, translate }) => {
         {product?.title}
       </h2>
     </motion.div>
+    </>
   );
 };

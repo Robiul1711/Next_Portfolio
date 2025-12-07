@@ -65,16 +65,16 @@ export default function AboutPage() {
       title: "Database Design",
       description: "Scalable database architecture"
     },
-    {
-      icon: <FiLayers />,
-      title: "UI/UX Design",
-      description: "Intuitive and engaging user interfaces"
-    },
-    {
-      icon: <FiZap />,
-      title: "Performance",
-      description: "Optimized, fast-loading applications"
-    },
+    // {
+    //   icon: <FiLayers />,
+    //   title: "UI/UX Design",
+    //   description: "Intuitive and engaging user interfaces"
+    // },
+    // {
+    //   icon: <FiZap />,
+    //   title: "Performance",
+    //   description: "Optimized, fast-loading applications"
+    // },
   ];
 
   return (
@@ -92,7 +92,7 @@ export default function AboutPage() {
       </div>
 
       {/* Main Content */}
-      <div ref={containerRef} className="relative z-10 section-padding-x py-20 max-w-7xl mx-auto">
+      <div ref={containerRef} className="relative z-10 section-padding-x py-20 max-w-[1540px] mx-auto">
         
         {/* Animated Header */}
         <motion.div

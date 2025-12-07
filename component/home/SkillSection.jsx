@@ -18,7 +18,7 @@ const skills = [
 ];
   const skillsLevel = [
     { icon: <SiReact />, name: "React.js", level: 95, color: "#61DAFB" },
-    { icon: <SiNextdotjs />, name: "Next.js", level: 90, color: "#fffff" },
+    { icon: <SiNextdotjs />, name: "Next.js", level: 90, color: "#ffff" },
     { icon: <SiNodedotjs />, name: "Node.js", level: 88, color: "#339933" },
     { icon: <SiMongodb />, name: "MongoDB", level: 85, color: "#47A248" },
     { icon: <SiTailwindcss />, name: "Tailwind", level: 94, color: "#06B6D4" },

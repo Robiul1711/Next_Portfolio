@@ -100,7 +100,7 @@ const Navbar = () => {
                 >
                   {/* Glow */}
                   <motion.div
-                    className="absolute inset-0 z-0 rounded-2xl pointer-events-none"
+                    className="absolute inset-0 z-0 rounded-full pointer-events-none"
                     variants={glowVariants}
                     style={{
                       background:

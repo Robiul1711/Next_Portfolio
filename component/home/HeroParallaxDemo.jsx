@@ -3,10 +3,20 @@ import { HeroParallax } from "@/components/ui/hero-parallax";
 import React from "react";
 import compare from "@/public/images/compare.png";
 import { getProjects } from "@/service/project/project";
+import CommonButton from "../common/CommonButton";
 
 export async function HeroParallaxDemo() {
   const products = await getProjects();
-  return <HeroParallax products={products} />;
+  return(
+    <>
+    <HeroParallax products={products} />
+    <div className="w-full flex items-center justify-center mb-10">
+
+       <CommonButton text="Get Start Now" link="/contact"  />
+    </div>
+    </>
+  )
+
 }
 // export const products = [
 //   {
