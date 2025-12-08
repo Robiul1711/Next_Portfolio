@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const HeroParallax = ({ products }) => {
-  console.log(products)
+  // console.log(products)
   const firstRow = products?.slice(0, 5);
   const secondRow = products?.slice(5, 10);
   const thirdRow = products?.slice(10, 15);
