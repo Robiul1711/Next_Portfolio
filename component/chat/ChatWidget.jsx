@@ -30,7 +30,7 @@ export default function ChatWidget() {
 
     try {
       const res = await axios.post(
-        `${process.env.VITE_API_URL}/api/chat`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/chat`,
         {
           message: userMessage,
           chatId,
