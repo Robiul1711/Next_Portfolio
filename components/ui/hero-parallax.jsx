@@ -105,36 +105,39 @@ export const Header = () => {
 };
 
 export const ProductCard = ({ product, translate }) => {
-  // console.log(product)
+  const imageSrc = product?.image;
+
   return (
-    <>
     <motion.div
-      style={{
-        x: translate,
-      }}
-      whileHover={{
-        y: -20,
-      }}
+      style={{ x: translate }}
+      whileHover={{ y: -20 }}
       key={product?.title}
       className="group/product h-90 w-[30rem] relative shrink-0"
     >
-      <Link
-        href={product?.live}
-        className="block group-hover/product:shadow-2xl "
-      >
-        <Image
-          src={product?.image}
-          alt={product?.title}
-          width={600}
-          height={600}
-          className="object-cover object-left-top absolute h-full w-full inset-0"
-        />
+      <Link href={product?.live || "#"} className="block group-hover/product:shadow-2xl">
+
+        {/* ✅ Render Image only if src exists */}
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt={product?.title || "Project Image"}
+            width={600}
+            height={600}
+            className="object-cover object-top-left absolute h-full w-full inset-0"
+          />
+        ) : (
+          /* Fallback skeleton */
+          <div className="w-full h-full bg-[#1a1a1a] flex items-center justify-center text-gray-500">
+            No Image
+          </div>
+        )}
       </Link>
-      <div className="absolute inset-0 h-full w-full opacity-0  group-hover/product:opacity-70 bg-black pointer-events-none"></div>
+
+      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-70 bg-black pointer-events-none"></div>
+
       <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
         {product?.title}
       </h2>
     </motion.div>
-    </>
   );
 };
